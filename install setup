@@ -1,0 +1,209 @@
+#################### To DO List #####
+//install theme - lxappearance/kvantum
+*//fix startup nitrogen/xrandr
+//UI blur transparency
+match themes
+//file browser and icom theme
+
+add starship prompt
+
+customize GUI
+    //qtile topbar
+    //text editor
+    //terminal
+    //sddm
+    //window effects
+
+################################# appearance themes ######################
+
+### lxappearance
+     	adapta-gtk-theme         # reg install cmd / dark theme
+        manjaro-cyan-dark
+
+### kvantum
+        kv adapta dark
+
+        /////////
+# theme and icons
+https://github.com/L4ki/Manjaro-Cyan-Plasma-Themes?tab=readme-ov-file
+
+# add folder to home .dot folders
+# change with lxappearance
+
+##################################### programs ###
+
+qtile
+thunar          #file manager
+Rofi            #launcher
+nitrogen
+lxappearance    # appearance
+kvantum         # appearance
+lite-xl         #text gui
+kitty           # terminal
+feh            # image viewer
+paru             #AUR pkg manager
+pavucontroll    #volume control for bar
+pywall            #pull color theme from image
+mpv            # advmaced video player
+starship        # custom prompt for terminal
+doom emacs      # text editor
+
+############################# qtile
+# arch install: qtile-extras
+
+
+from qtile_extras import widget
+from qtile_extras.widget.decorations import RectDecoration, BorderDecoration
+
+                    --------------
+https://qtile-extras.readthedocs.io/en/latest/manual/ref/decorations.html
+# set bar background to transparency
+background='#00000000', 
+
+                    -----------
+#set decorations - add to widget "()"
+decorations=[
+                            RectDecoration(colour='#ffffff', radius=13, filled=True, padding_y=0)
+                        ]
+
+                ---------------
+# dependacies
+python-iwlib
+python-psutil
+
+############################## font install ###
+
+donload font
+move to ~/.local/share/fonts/  and also  /usr/share/fonts
+use "unzip" filename.zip  #might have to install unzip
+
+update font cache: sudo fc-cache -f -v
+
+ProFontIIxNerdFont
+JetBrainsMono Nerd Font
+
+############################### Rofi
+https://github.com/adi1090x/rofi
+
+install then point theme at bottom of Rofi config to rasi file of launcher 
+
+####################### power menu
+# simple power menu
+https://github.com/Pyntux/wm_power_menu
+
+############################### lite-xl 
+# add plugin
+use git clone to make folder in /home/trevor/.config/lite-xl/plugins/
+or just DL files and move
+
+# theme plugin / Lite-XL Base16 Plugin
+  has 2 dependencies.
+
+            ##########
+#plugins to use
+    lite-xl-gitdiff-highlight
+    codeplus
+    colorpreview
+
+# theme is set in color tab and add .lua to color folder
+    folder in color folder
+    remove Base16 as ther is conflict with default color theme picker
+
+############################## startup script from login ###
+
+#sudo edit file - run at system start
+/usr/share/sddm/scripts/Xsetup
+xrandr --output Virtual1 --mode 1920x1080 &
+
+# startup once from qtile config start
+import os
+import subprocess
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart_once.sh')
+    subprocess.Popen([home])
+
+
+############################  wallpaper hard code
+screens = [
+    
+    Screen(
+    
+        wallpaper='/home/trevor/Documents/backgrounds/wallpaper1.png',
+        wallpaper_mode='fill',
+        
+        top=bar.Bar(
+            [
+
+#################################### kitty 
+
+kitty themes  #in terminal - opens themes selector
+    cyberpunk neon
+    neon
+
+kitty list-fonts
+
+# SHELL fish
+    sudo pacman -S fish
+    
+    
+###########################    Paru 
+# package manager to install sddm AUR pkgs 
+https://github.com/Morganamilo/paru
+
+
+###########################  SDDM 
+
+sugar-dark
+
+## sudo open file and edit theme
+SDDM to the new theme by editing its config file, preferrably at /etc/sddm.conf.d/sddm.conf  or default.conf
+
+#find config for themes in /usr/share/sddm/themes/  #edit theme.conf
+
+
+#########################################  Picom
+
+# picom for transparency and blur
+https://wiki.archlinux.org/title/picom
+
+#use AUR
+sudo pacman -S picom-git
+
+# then copy conf to .config/picom
+# add to qtile config
+
+import os
+import subprocess
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~/.config/qtile/autostart_once.sh')
+    subprocess.Popen([home])
+
+
+# add line to startup qtile file
+picom &
+
+     ############### # ##### settings ##### blur not working
+opacity-rule = [
+      "95:class_g = 'kitty' && focused",
+      "85:class_g = 'kitty' && !focused",
+      "95:class_g = 'Thunar' && focused",
+      "85:class_g = 'Thunar' && !focused",
+];
+
+#################################    starship
+
+Add the following to the end of ~/.config/fish/config.fish:
+
+starship init fish | source
+
+#######################  doom emacs
+
+# depedncies 
+emacs git ripgrep fd
+
+github - https://github.com/doomemacs/doomemacs.git
+
